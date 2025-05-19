@@ -1,4 +1,4 @@
-![image](https://github.com/user-attachments/assets/2f2804c4-a2b2-49c6-acb2-061c1e15fd16)![image](https://github.com/user-attachments/assets/5b98e522-11a6-4b16-afea-187e74aa404a)# Overview
+# Overview
 mst_iot_temperature uses a [Feather Huzzah microcontroller](https://www.adafruit.com/product/2821) and a [DFrobot Fermion SHT41 breakout 
 board](https://www.dfrobot.com/product-2437.html) to upload temperature and humidity data to the Adafruit IO cloud. You need to get these two components, plus a battery with JST connector if you want to operate the system without USB power. Multiple [such batteries in different sizes](https://www.adafruit.com/product/2011) can be purchased e.g. from Adafruit. 
 # Physical connections
