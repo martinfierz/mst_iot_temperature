@@ -96,5 +96,5 @@ Once you see that your program is running, you can view your data directly by lo
 
 ![dashboard](https://github.com/user-attachments/assets/4bc5d776-0801-417a-87b2-5cc618a03ab9)
 
-Have fun!
+If you have any suggestions for improvements or extensions, let me know!
 
