@@ -1,4 +1,4 @@
-# Overview
+![image](https://github.com/user-attachments/assets/2f2804c4-a2b2-49c6-acb2-061c1e15fd16)![image](https://github.com/user-attachments/assets/5b98e522-11a6-4b16-afea-187e74aa404a)# Overview
 mst_iot_temperature uses a [Feather Huzzah microcontroller](https://www.adafruit.com/product/2821) and a [DFrobot Fermion SHT41 breakout 
 board](https://www.dfrobot.com/product-2437.html) to upload temperature and humidity data to the Adafruit IO cloud. You need to get these two components, plus a battery with JST connector if you want to operate the system without USB power. Multiple [such batteries in different sizes](https://www.adafruit.com/product/2011) can be purchased e.g. from Adafruit. 
 # Physical connections
@@ -33,15 +33,22 @@ In the Arduino IDE, you have to install the "Board package" for the Feather Huzz
 ![boardpackage](https://github.com/user-attachments/assets/0078a219-0d18-46d0-9e08-942504813f2f)
 
 Now connect the Feather Huzzah to your PC, and choose the Feather Huzzah ESP8266 in the white "select board" field in the the title bar of the Arduino IDE.
+
 ![selectboard](https://github.com/user-attachments/assets/a6e242d7-a16e-412f-998f-6b879e6cec3e)
 
 ![selectboard](https://github.com/user-attachments/assets/977a9a13-5195-4140-a191-4fc3005e734f)
 
+A message will appear telling you to install "esp8266 core", so do that. When these steps are done, you should have an empty Arduino sketch (program) in your Arduino IDE. 
+Finally, you need to install libraries for both the SHT41 breakout board and for the Adafruit IO cloud. For the SHT41, follow the steps in the image below. If you chosse "install all" in the first dialog, it will install the BusIO library automatically, otherwise you need to add it manually like at the end of the instructions in the image below. 
 
-. 
+![sht4xlibrary](https://github.com/user-attachments/assets/e0cf72af-e66a-4989-a128-83bb75c9d8f6)
+
+The second necessary library is for the Adafruit IO cloud. Install it via the library manager like before
+
+![adafruitIO](https://github.com/user-attachments/assets/0168af89-52e6-4bd3-b0b6-d16cc08ec859)
+
 ## Overview
 Standard Arduino code consists of two main functions called setup() and loop(); setup() is executed at startup once, and then loop() is executed repetitively. 
 The Arduino code for this program is slightly unusual because the loop() function is empty. The reason is that the whole program only runs in the setup() function, and at the end of that function, the microcontroller is put into deep sleep mode, from which it is woken by a signal on the reset pin - so after waking up, it starts over again in the setup() function,  never actually getting to the loop().
 Apart from getting a temperature and humidity reading from the sensor, and uploading that data to the Adafruit IO cloud, the code also prints the values read so you can view what is going on with the serial monitor, it turns on the red LED on the Feather PCB while it is measuring so you know when it is active (and that it is active, when it is running standalone). That's all the code does, the program is very basic. 
-## Libraries
-For this program to work, you will need to install libraries for both the SHT41 breakout board and for the Adafruit IO cloud. 
+
