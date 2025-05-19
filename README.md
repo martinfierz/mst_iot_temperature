@@ -1,13 +1,18 @@
 # Overview
-mst_iot_temperature uses an (https://www.adafruit.com/product/2821 microcontroller and a [DFrobot Fermion SHT41 breakout 
+mst_iot_temperature uses a [Feather Huzzah microcontroller](https://www.adafruit.com/product/2821) and a [DFrobot Fermion SHT41 breakout 
 board](https://www.dfrobot.com/product-2437.html) to upload temperature and humidity data to the Adafruit IO cloud. You need to get these two components, plus a battery with JST connector if you want to operate the system without USB power. Multiple [such batteries in different sizes](https://www.adafruit.com/product/2011) can be purchased e.g. from Adafruit. 
 # Physical connections
 ## Connection of the breakout board
-For this project to work, you need to physically connect the SHT41 breakout board to the Feather microcontroller. Depending on your exact configuration (male/female headers), 
-you might need different types of cables. The 4 lines of the SHT41 breakout board for the I2C communication (VCC and GND for power supply, SCL and SDA for clock and data) are connected to corresponding pins on the Feather Huzzah as shown in the image below. No further setup in the code is required, since these pins of the microcontroller already are doing what we need. 
-![zoomed](https://github.com/user-attachments/assets/47d9a9d1-d44b-4868-b142-c64e246a3625)
+For this project to work, you need to physically connect the SHT41 breakout board to the Feather microcontroller. Depending on your exact configuration (male/female headers), you might need different types of cables. The SHT41 breakout board has 4 connections, labelled VCC, GND, SCL and SDA. These are supply power (VCC), ground (GND), serial clock (SCL) and serial data (SDA). First, we need to power it by connecting VCC and GND to the pins of the Feather PCB shown below. 
+![I2CPower](https://github.com/user-attachments/assets/8dbe8aa7-1b3e-43a2-95c2-d43b5c664d08)
+Next, we have to connect SCL and SDA to the corresponding pins on the Feather PCB, shown in the next image.
+![I2C](https://github.com/user-attachments/assets/32114353-9b83-40c1-9842-c613962e0f6c)
+With this, the SHT41 breakout board is connected, and we don't need to set up anything further about the pins used, since they are all already doing the right thing by default. 
 ## Connection for deep sleep
-The microcontroller will go into deep sleep mode most of the time, and wake itself up. This needs an external connection of pin 16 to the reset pin, also shown in the picture above. 
+The microcontroller will go into deep sleep mode most of the time, and wake itself up. This needs an external connection of pin 16 to the reset pin, shown in the picture below.
+![Reset](https://github.com/user-attachments/assets/277907f8-d2f5-4613-80e5-d13fb08def17)
+The final setup should look something like this: 
+![zoomed](https://github.com/user-attachments/assets/47d9a9d1-d44b-4868-b142-c64e246a3625)
 # Code
 ## What this program does
 The Arduino code is slightly unusual because the loop() function is empty. The reason is that the whole program only runs in the setup() function, and at the end of that function, the microcontroller goes into deep sleep mode, from which it is woken by a signal on the reset pin - so after waking up, it starts over again in the setup() function, thus never actually getting to the loop().
