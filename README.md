@@ -1,6 +1,6 @@
 # Overview
 mst_iot_temperature uses a [Feather Huzzah microcontroller](https://www.adafruit.com/product/2821) and a [DFrobot Fermion SHT41 breakout 
-board](https://www.dfrobot.com/product-2437.html) to upload temperature and humidity data to the Adafruit IO cloud. You need to get these two components, plus a battery with JST connector if you want to operate the system without USB power. Multiple [such batteries in different sizes](https://www.adafruit.com/product/2011) can be purchased e.g. from Adafruit. 
+board](https://www.dfrobot.com/product-2437.html) to upload temperature and humidity data via WLAN to the Adafruit IO cloud. You need to get these two components, plus a battery with JST connector if you want to operate the system without USB power. Multiple [such batteries in different sizes](https://www.adafruit.com/product/2011) can be purchased e.g. from Adafruit. 
 # Physical connections
 ## Connection of the breakout board
 For this project to work, you need to physically connect the SHT41 breakout board to the Feather microcontroller. Depending on your exact configuration (male/female headers), you might need different types of cables. The SHT41 breakout board has 4 connections, labelled VCC, GND, SCL and SDA. These are supply power (VCC), ground (GND), serial clock (SCL) and serial data (SDA). First, we need to power it by connecting VCC and GND to the pins of the Feather PCB shown below. 
@@ -50,7 +50,7 @@ The second necessary library is for the Adafruit IO cloud. Install it via the li
 
 ![adafruitIO](https://github.com/user-attachments/assets/0168af89-52e6-4bd3-b0b6-d16cc08ec859)
 
-# Adafruit IO
+# Adafruit IO, part I
 ## Create account
 We will be uploading data to an IoT cloud service. There are lots of them out there, and I chose that of Adafruit because it is free for "low" usage. Go to the [Adafruit IO homepage](https://accounts.adafruit.com/ ) and create a new account. You will need to verify your account after creating it by an email link. Once this is done, you can login to your Adafruit IO account by clicking IO in the menu on the top right of the website. 
 
@@ -72,4 +72,29 @@ Now we are finally ready to code something!
 Standard Arduino code consists of two main functions called setup() and loop(); setup() is executed at startup once, and then loop() is executed repetitively. 
 The Arduino code for this program is slightly unusual because the loop() function is empty. The reason is that the whole program only runs in the setup() function, and at the end of that function, the microcontroller is put into deep sleep mode, from which it is woken by a signal on the reset pin - so after waking up, it starts over again in the setup() function,  never actually getting to the loop().
 Apart from getting a temperature and humidity reading from the sensor, and uploading that data to the Adafruit IO cloud, the code also prints the values read so you can view what is going on with the serial monitor, it turns on the red LED on the Feather PCB while it is measuring so you know when it is active (and that it is active, when it is running standalone). That's all the code does, the program is very basic. 
+
+## Running the program
+Copy the code (single .ino file in this repository), delete the code in the open empty sketch, and replace it with the copied code. At the top of the file, you will find 4 defines, which you need to change:
+
+![defines](https://github.com/user-attachments/assets/72189822-cd50-4a87-86d3-47108375740b)
+
+Make sure to keep the quotation marks, but replace the Adafruit IO and WLAN names and passwords with your login credentials. Once you have done this, you should be able to run the program by clicking the run button in the title bar of the Arduino IDE.
+
+![run](https://github.com/user-attachments/assets/0b25dafc-98d2-43f9-b330-3491471aa57b)
+
+Open the serial monitor to see the output of the program by clicking on the serial monitor button on the top right of the Arduino IDE window/toolbar. 
+
+![serialmonitor](https://github.com/user-attachments/assets/24185213-608f-4cef-9892-0a2aec44789f)
+
+Your output should look a bit like this:
+
+![serialout](https://github.com/user-attachments/assets/5cb917ad-8e67-4f1d-a990-0f3e20f868c1)
+
+# Adafruit.IO, Part II
+
+Once you see that your program is running, you can view your data directly by looking at the Feeds tab in Adafruit.io, or you can create a dashboard which shows a graph of the data easily. 
+
+![dashboard](https://github.com/user-attachments/assets/4bc5d776-0801-417a-87b2-5cc618a03ab9)
+
+Have fun!
 
