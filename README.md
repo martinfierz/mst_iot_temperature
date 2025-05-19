@@ -22,8 +22,26 @@ The final setup should look something like this:
 ![zoomed](https://github.com/user-attachments/assets/47d9a9d1-d44b-4868-b142-c64e246a3625)
 
 # Code
-## What this program does
-The Arduino code is slightly unusual because the loop() function is empty. The reason is that the whole program only runs in the setup() function, and at the end of that function, the microcontroller goes into deep sleep mode, from which it is woken by a signal on the reset pin - so after waking up, it starts over again in the setup() function, thus never actually getting to the loop().
+## Prerequisites
+
+First, you have to install the driver for the [Feather Huzzah board](http://www.silabs.com/products/development-tools/software/usb-to-uart-bridge-vcp-drivers). Download the zip-file "CP210X universal windows driver", extract it, right-click on the .inf file and choose "install". 
+
+Next, if you do not already have it installed, you need to install the [Arduino IDE](http://www.arduino.cc/en/Main/Software). Start it after installation, it might install some additional updates. 
+
+In the Arduino IDE, you have to install the "Board package" for the Feather Huzzah. In the menu, select file->preferences... and fill the dialog as follows:
+
+![boardpackage](https://github.com/user-attachments/assets/0078a219-0d18-46d0-9e08-942504813f2f)
+
+Now connect the Feather Huzzah to your PC, and choose the Feather Huzzah ESP8266 in the white "select board" field in the the title bar of the Arduino IDE.
+![selectboard](https://github.com/user-attachments/assets/a6e242d7-a16e-412f-998f-6b879e6cec3e)
+
+![selectboard](https://github.com/user-attachments/assets/977a9a13-5195-4140-a191-4fc3005e734f)
+
+
+. 
+## Overview
+Standard Arduino code consists of two main functions called setup() and loop(); setup() is executed at startup once, and then loop() is executed repetitively. 
+The Arduino code for this program is slightly unusual because the loop() function is empty. The reason is that the whole program only runs in the setup() function, and at the end of that function, the microcontroller is put into deep sleep mode, from which it is woken by a signal on the reset pin - so after waking up, it starts over again in the setup() function,  never actually getting to the loop().
 Apart from getting a temperature and humidity reading from the sensor, and uploading that data to the Adafruit IO cloud, the code also prints the values read so you can view what is going on with the serial monitor, it turns on the red LED on the Feather PCB while it is measuring so you know when it is active (and that it is active, when it is running standalone). That's all the code does, the program is very basic. 
 ## Libraries
-For this program to work, you will need to install libraries: 
+For this program to work, you will need to install libraries for both the SHT41 breakout board and for the Adafruit IO cloud. 
