@@ -1,6 +1,6 @@
 # Overview
 mst_iot_temperature uses a [Feather Huzzah microcontroller](https://www.adafruit.com/product/2821) and a [DFrobot Fermion SHT41 breakout 
-board](https://www.dfrobot.com/product-2437.html) to upload temperature and humidity data via WLAN to the Adafruit IO cloud. You need to get these two components, plus a battery with JST connector if you want to operate the system without USB power. Multiple [such batteries in different sizes](https://www.adafruit.com/product/2011) can be purchased e.g. from Adafruit. 
+board](https://www.dfrobot.com/product-2437.html) to upload temperature and humidity data via WLAN to the Adafruit IO cloud. You can run the system either on USB power, or you can buy a battery with JST connector if you want a few days of temperature logging without external power. Multiple [such batteries in different sizes](https://www.adafruit.com/product/2011) can be purchased e.g. from Adafruit. 
 # Physical connections
 ## Connection of the breakout board
 For this project to work, you need to physically connect the SHT41 breakout board to the Feather microcontroller. Depending on your exact configuration (male/female headers), you might need different types of cables. The SHT41 breakout board has 4 connections, labelled VCC, GND, SCL and SDA. These are supply power (VCC), ground (GND), serial clock (SCL) and serial data (SDA). First, we need to power it by connecting VCC and GND to the pins of the Feather PCB shown below. 
